@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import { assertDatabaseExists } from "../../adapters/orms/mongoose/configuration";
+import { assertDatabaseExists } from "~/adapters/orms/mongoose/configuration";
 import { assertIsNotNullOrUndefined, assertIsValidTenantId } from "../assertions";
 import jwt from 'jsonwebtoken'
 

@@ -1,6 +1,7 @@
 import cors from 'cors'
 import express from 'express'
 import { GlobalMiddlewares } from './global.middleware'
+import { loadTenantMiddleware } from './tenant.middleware'
 
 export class Server {
   private app = express()
@@ -19,7 +20,10 @@ export class Server {
     for (const route of routes) {
       this.app.use(
         route.path,
-        [this.globalMiddlewares.verifyTenantExistence.bind(this.globalMiddlewares)],
+        [
+          this.globalMiddlewares.verifyTenantExistence.bind(this.globalMiddlewares),
+          loadTenantMiddleware
+        ],
         route.handler
       )
     }
@@ -32,7 +36,8 @@ export class Server {
         [
           this.globalMiddlewares.verifyJwt.bind(this.globalMiddlewares),
           this.globalMiddlewares.verifyTenantByJwt.bind(this.globalMiddlewares),
-          this.globalMiddlewares.verifyTenantExistence.bind(this.globalMiddlewares)
+          this.globalMiddlewares.verifyTenantExistence.bind(this.globalMiddlewares),
+          loadTenantMiddleware
         ],
         route.handler
       )

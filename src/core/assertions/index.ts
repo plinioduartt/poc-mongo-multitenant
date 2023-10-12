@@ -1,5 +1,5 @@
 export function assertIsValidTenantId(tenantId: string | string[] | undefined): asserts tenantId is string {
-  if (typeof tenantId !== 'string' || !tenantId) {
+  if (typeof tenantId !== 'string' || !tenantId?.trim()) {
     throw new Error("Invalid tenantId")
   }
 }
